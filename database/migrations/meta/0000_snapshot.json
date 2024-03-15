@@ -1,0 +1,141 @@
+{
+  "version": "5",
+  "dialect": "sqlite",
+  "id": "605ac964-6a91-4e7a-8dc9-281df0f8a150",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "tables": {
+    "actors_to_users": {
+      "name": "actors_to_users",
+      "columns": {
+        "actor_id": {
+          "name": "actor_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "film_id": {
+          "name": "film_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "actor_idx": {
+          "name": "actor_idx",
+          "columns": [
+            "actor_id"
+          ],
+          "isUnique": false
+        },
+        "film_idx": {
+          "name": "film_idx",
+          "columns": [
+            "film_id"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "actors_to_users_actor_id_actors_id_fk": {
+          "name": "actors_to_users_actor_id_actors_id_fk",
+          "tableFrom": "actors_to_users",
+          "tableTo": "actors",
+          "columnsFrom": [
+            "actor_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        },
+        "actors_to_users_film_id_films_id_fk": {
+          "name": "actors_to_users_film_id_films_id_fk",
+          "tableFrom": "actors_to_users",
+          "tableTo": "films",
+          "columnsFrom": [
+            "film_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {
+        "actors_to_users_actor_id_film_id_pk": {
+          "columns": [
+            "actor_id",
+            "film_id"
+          ],
+          "name": "actors_to_users_actor_id_film_id_pk"
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "actors": {
+      "name": "actors",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "films": {
+      "name": "films",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "films_name_unique": {
+          "name": "films_name_unique",
+          "columns": [
+            "name"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  }
+}
