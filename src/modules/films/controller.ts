@@ -1,5 +1,6 @@
 import { Request, Response, Router } from "express";
 import { body, param, validationResult } from "express-validator";
+import { authMiddleware } from "../auth/middleware";
 import {
   CreateFilmData,
   UpdateFilmData,
@@ -14,6 +15,7 @@ export const filmsController = Router();
 
 filmsController.post(
   "/film",
+  authMiddleware(),
   body("name").isString().trim().isLength({
     min: 1,
     max: 255,
@@ -28,12 +30,17 @@ filmsController.post(
   }
 );
 
-filmsController.get("/films", async (_req: Request, res: Response) => {
-  res.status(200).send(await findAllFilms());
-});
+filmsController.get(
+  "/films",
+  authMiddleware(),
+  async (_req: Request, res: Response) => {
+    res.status(200).send(await findAllFilms());
+  }
+);
 
 filmsController.get(
   "/film/:id",
+  authMiddleware(),
   param("id").isInt(),
   async (req: Request<{ id: string }>, res: Response) => {
     validationResult(req).throw();
@@ -43,6 +50,7 @@ filmsController.get(
 
 filmsController.patch(
   "/film/:id",
+  authMiddleware(),
   param("id").isInt(),
   body("name")
     .isString()
@@ -66,6 +74,7 @@ filmsController.patch(
 
 filmsController.delete(
   "/film/:id",
+  authMiddleware(),
   async (req: Request<{ id: string }>, res: Response) => {
     validationResult(req).throw();
     res.status(200).send(await deleteFilm(+req.params.id));

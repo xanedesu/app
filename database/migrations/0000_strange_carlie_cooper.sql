@@ -11,6 +11,12 @@ CREATE TABLE `actors` (
 	`name` text NOT NULL
 );
 --> statement-breakpoint
+CREATE TABLE `users` (
+	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`username` text NOT NULL,
+	`password` text NOT NULL
+);
+--> statement-breakpoint
 CREATE TABLE `films` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`name` text NOT NULL
@@ -18,4 +24,5 @@ CREATE TABLE `films` (
 --> statement-breakpoint
 CREATE INDEX `actor_idx` ON `actors_to_films` (`actor_id`);--> statement-breakpoint
 CREATE INDEX `film_idx` ON `actors_to_films` (`film_id`);--> statement-breakpoint
+CREATE UNIQUE INDEX `users_username_unique` ON `users` (`username`);--> statement-breakpoint
 CREATE UNIQUE INDEX `films_name_unique` ON `films` (`name`);

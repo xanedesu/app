@@ -1,5 +1,6 @@
 import { Request, Response, Router } from "express";
 import { body, param, validationResult } from "express-validator";
+import { authMiddleware } from "../auth/middleware";
 import {
   CreateActorData,
   UpdateActorData,
@@ -14,6 +15,7 @@ export const actorsController = Router();
 
 actorsController.post(
   "/actor",
+  authMiddleware(),
   body("name").isString().trim().isLength({
     min: 1,
     max: 255,
@@ -24,12 +26,17 @@ actorsController.post(
   }
 );
 
-actorsController.get("/actors", async (_req: Request, res: Response) => {
-  res.status(200).send(await findAllActors());
-});
+actorsController.get(
+  "/actors",
+  authMiddleware(),
+  async (_req: Request, res: Response) => {
+    res.status(200).send(await findAllActors());
+  }
+);
 
 actorsController.get(
   "/actor/:id",
+  authMiddleware(),
   param("id").isInt(),
   async (req: Request<{ id: string }>, res: Response) => {
     validationResult(req).throw();
@@ -39,6 +46,7 @@ actorsController.get(
 
 actorsController.patch(
   "/actor/:id",
+  authMiddleware(),
   param("id").isInt(),
   body("name").isString().trim().isLength({
     min: 1,
@@ -52,6 +60,7 @@ actorsController.patch(
 
 actorsController.delete(
   "/actor/:id",
+  authMiddleware(),
   async (req: Request<{ id: string }>, res: Response) => {
     validationResult(req).throw();
     res.status(200).send(await deleteActor(+req.params.id));

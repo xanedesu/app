@@ -1,9 +1,11 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { actorsController } from "./modules/actors/controller";
+import { authController } from "./modules/auth/controller";
 import { filmsController } from "./modules/films/controller";
 
 export const apiController = Router();
 
+apiController.use(authController);
 apiController.use(actorsController);
 apiController.use(filmsController);
 

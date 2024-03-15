@@ -1,11 +1,11 @@
 {
   "version": "5",
   "dialect": "sqlite",
-  "id": "605ac964-6a91-4e7a-8dc9-281df0f8a150",
+  "id": "a58b006d-c557-423c-9a5a-3e54ea6183cf",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
-    "actors_to_users": {
-      "name": "actors_to_users",
+    "actors_to_films": {
+      "name": "actors_to_films",
       "columns": {
         "actor_id": {
           "name": "actor_id",
@@ -39,9 +39,9 @@
         }
       },
       "foreignKeys": {
-        "actors_to_users_actor_id_actors_id_fk": {
-          "name": "actors_to_users_actor_id_actors_id_fk",
-          "tableFrom": "actors_to_users",
+        "actors_to_films_actor_id_actors_id_fk": {
+          "name": "actors_to_films_actor_id_actors_id_fk",
+          "tableFrom": "actors_to_films",
           "tableTo": "actors",
           "columnsFrom": [
             "actor_id"
@@ -52,9 +52,9 @@
           "onDelete": "cascade",
           "onUpdate": "cascade"
         },
-        "actors_to_users_film_id_films_id_fk": {
-          "name": "actors_to_users_film_id_films_id_fk",
-          "tableFrom": "actors_to_users",
+        "actors_to_films_film_id_films_id_fk": {
+          "name": "actors_to_films_film_id_films_id_fk",
+          "tableFrom": "actors_to_films",
           "tableTo": "films",
           "columnsFrom": [
             "film_id"
@@ -67,12 +67,12 @@
         }
       },
       "compositePrimaryKeys": {
-        "actors_to_users_actor_id_film_id_pk": {
+        "actors_to_films_actor_id_film_id_pk": {
           "columns": [
             "actor_id",
             "film_id"
           ],
-          "name": "actors_to_users_actor_id_film_id_pk"
+          "name": "actors_to_films_actor_id_film_id_pk"
         }
       },
       "uniqueConstraints": {}
@@ -96,6 +96,44 @@
         }
       },
       "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "users": {
+      "name": "users",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "username": {
+          "name": "username",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "password": {
+          "name": "password",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "users_username_unique": {
+          "name": "users_username_unique",
+          "columns": [
+            "username"
+          ],
+          "isUnique": true
+        }
+      },
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
